@@ -2,8 +2,6 @@ name: deploy Backend to EC2
 
 on:
   push:
-    branches: [ "deploy-setup" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -29,7 +27,7 @@ jobs:
         context: .
         file: docker/Dockerfile.backend
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/pizza-backend:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/crust-backend:latest
 
     - name: SSH to EC2 and deploy
       uses: appleboy/ssh-action@v0.1.5
