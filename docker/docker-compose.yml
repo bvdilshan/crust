@@ -1,15 +1,21 @@
 version: '3.8'
+
 services:
   backend:
     build:
       context: ..
       dockerfile: docker/Dockerfile.backend
+    image: bvdilshan/crust-backend:latest
+    container_name: crust-backend-prod
+    restart: always
     ports:
       - "5000:5000"
-    env_file:
-      - ../backend/.env
     environment:
-      - MONGO_URI=mongodb://host.docker.internal:27017/crustoria
-    volumes:
-      - ../backend:/app
-      - /app/node_modules
+      - NODE_ENV=production
+      - MONGO_URI=${MONGO_URI}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
